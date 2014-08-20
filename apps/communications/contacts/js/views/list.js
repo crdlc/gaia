@@ -101,7 +101,7 @@ contacts.List = (function() {
     monitor && monitor.pauseMonitoringMutations();
     renderLoadedContact(row, id);
     updateRowStyle(row, true);
-    renderPhoto(row, id);
+    renderPhoto(row, id, false, group);
     updateSingleRowSelection(row, id);
 
     // Since imgLoader.reload() causes sync reflows we only want to make this
@@ -183,6 +183,8 @@ contacts.List = (function() {
     if (reset) {
       resetDom();
     }
+
+    createPhotoTemplate();
   };
 
   function hide() {
@@ -850,24 +852,20 @@ contacts.List = (function() {
   // "Render" the photo by setting the img tag's dataset-src attribute to the
   // value in our photo cache.  This in turn will allow the imgLoader to load
   // the image once we have stopped scrolling.
-  var renderPhoto = function renderPhoto(link, id, asClone) {
+  var renderPhoto = function renderPhoto(link, id, asClone, group) {
     id = id || link.dataset.uuid;
+    var img = link.querySelector('aside > span[data-type=img]');
+
     var photo = photosById[id];
     if (!photo) {
+      renderDefaultPhoto(img, photo, link, group);
       return;
     }
 
-    var img = link.querySelector('aside > span[data-type=img]');
     if (img) {
+      delete img.dataset.group;
       setImageURL(img, photo, asClone);
       return;
-    }
-    if (!photoTemplate) {
-      photoTemplate = document.createElement('aside');
-      photoTemplate.className = 'pack-end';
-      img = document.createElement('span');
-      img.dataset.type = 'img';
-      photoTemplate.appendChild(img);
     }
 
     var figure = photoTemplate.cloneNode(true);
@@ -875,6 +873,44 @@ contacts.List = (function() {
     setImageURL(img, photo);
 
     link.insertBefore(figure, link.children[0]);
+    return;
+  };
+
+  /**
+   * Build the template used for displaying the thumbnail
+   * image. As long as all rows will have an image
+   * default or not, this is invoked at initialisation
+   */
+  function createPhotoTemplate() {
+    photoTemplate = document.createElement('aside');
+    photoTemplate.className = 'pack-end';
+    var img = document.createElement('span');
+    img.dataset.type = 'img';
+    photoTemplate.appendChild(img);
+  }
+
+  /**
+   * Renders the default image for a contact using a ramdon
+   * position of a background image and the group letter
+   */
+  var renderDefaultPhoto =
+    function renderDefaultPhoto(img, photo, link, group) {
+    if (!img) {
+      var figure = photoTemplate.cloneNode(true);
+      img = figure.children[0];
+
+      var posH = ['left','center','right'];
+      var posV = ['top','center','bottom'];
+      var position =
+        posH[Math.floor(Math.random()*3)] + ' ' +
+        posV[Math.floor(Math.random()*3)];
+
+      img.style.backgroundPosition = position;
+
+      link.insertBefore(figure, link.children[0]);
+    }
+    img.dataset.group = group;
+
     return;
   };
 
