@@ -728,8 +728,13 @@ form[role="dialog"][data-type="edit"].contacts-select:not(.insearchmode) header 
 [data-type="list"] .contact-item > aside > span {
   position: relative;
   background: url(images/Imagery.png) no-repeat 50% 50% / 7rem auto;
+  display: none;
 }
 
+/* Photo by default is displayed when it is visited by image loader component */
+[data-type="list"] .contact-item[data-visited="true"] > aside > span {
+  display: block;
+}
 
 html[dir="rtl"] #no-contacts .icon {
   padding-right: 3.5rem;
