@@ -58,7 +58,7 @@
     },
 
     get name() {
-      return this.detail.name || '';
+      return this.detail.name;
     },
 
     set name(value) {

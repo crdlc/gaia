@@ -25,6 +25,7 @@
 
         case 'action':
         case 'hashchange':
+          this.nameField.blur();
           this.close();
           break;
 
@@ -44,9 +45,10 @@
       LazyLoader.load(resources, () => {
         this.group = group;
         this.attachHandlers();
-        this.nameField.value = group.name;
+        this.nameField.value = group.name || '';
         this.checkSaveAction();
         this.container.hidden = false;
+        this.nameField.focus();
       });
     },
 
