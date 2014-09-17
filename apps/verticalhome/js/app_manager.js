@@ -1,6 +1,8 @@
 /* global ConfirmDialogHelper */
 /* global BookmarksDatabase */
 /* global CollectionsDatabase */
+/* global LazyLoader */
+/* global groupEditor */
 
 'use strict';
 
@@ -16,6 +18,7 @@
 
     window.addEventListener('gaiagrid-add-to-collection', this);
     grid.addEventListener('removeitem', this);
+    grid.addEventListener('edititem', this);
   }
 
   AppManager.prototype = {
@@ -88,6 +91,18 @@
             }
           });
           dialog.show(document.body);
+          break;
+
+        case 'edititem':
+          var item = e.detail;
+          if (item.detail.type != 'divider') {
+            // We only edit groups
+            return;
+          }
+
+          LazyLoader.load('js/edit_group.js', () => {
+            groupEditor.edit(item);
+          });
           break;
 
         case 'gaiagrid-add-to-collection':

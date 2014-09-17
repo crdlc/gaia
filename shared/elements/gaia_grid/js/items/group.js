@@ -57,6 +57,16 @@
         this.separatorHeight;
     },
 
+    get name() {
+      return this.detail.name || '';
+    },
+
+    set name(value) {
+      this.detail.name = value;
+      this.updateTitle();
+      window.dispatchEvent(new CustomEvent('gaiagrid-saveitems'));
+    },
+
     /**
      * Returns the number of items in  the group. Relies on the item  index
      * being correct.
@@ -103,7 +113,7 @@
         // Create the title span
         span = document.createElement('span');
         span.className = 'title';
-        /*span.appendChild(document.createTextNode('Group title'));*/
+        span.textContent = this.name;
         this.headerSpanElement.appendChild(span);
         this.titleElement = span;
 
@@ -307,7 +317,7 @@
           this.collapse();
         }
       } else if (target === this.headerSpanElement && inEditMode) {
-        // TODO: Edit header
+        this.edit();
       }
     },
 
@@ -315,6 +325,15 @@
       if (this.element) {
         this.element.parentNode.removeChild(this.element);
       }
+    },
+
+    /**
+     * It dispatches an edititem event.
+     */
+    edit: function() {
+      this.grid.element.dispatchEvent(new CustomEvent('edititem', {
+        detail: this
+      }));
     },
 
     isDraggable: function() {
