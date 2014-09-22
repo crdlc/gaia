@@ -1,5 +1,5 @@
 'use strict';
-/* global ItemStore, LazyLoader, Configurator, SettingsListener */
+/* global ItemStore, LazyLoader, Configurator, SettingsListener, groupEditor */
 
 (function(exports) {
 
@@ -225,6 +225,11 @@
         // The system app changes the hash of the homescreen iframe when it
         // receives a home button press.
         case 'hashchange':
+          // The group editor UI will be hidden by itself so returning...
+          if (groupEditor && !groupEditor.hidden) {
+            return;
+          }
+
           var _grid = this.grid._grid;
 
           // Leave edit mode if the user is in edit mode.
