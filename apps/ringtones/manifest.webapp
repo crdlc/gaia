@@ -14,6 +14,7 @@
     "device-storage:music": { "access": "readwrite" },
     "storage": {},
     "audio-channel-ringer": {},
+    "audio-channel-content": {},
     "desktop-notification": {}
   },
   "activities": {
@@ -37,7 +38,6 @@
         "__bug1015513_hide_from_self__": false,
         "number": 1
       },
-      "disposition": "inline",
       "returnValue": true,
       "href": "/share.html#activity"
     },
