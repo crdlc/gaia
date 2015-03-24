@@ -1,0 +1,13 @@
+{
+  "name": "System XHR Test",
+  "url": "https://test.hostedweb.tid.es",
+  "description": "System XHR Test",
+  "type": "trusted",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "The Gaia Team",
+    "url": "https://github.com/mozilla-b2g/gaia"
+  },
+  "default_locale": "en-US",
+  "orientation": "default"
+}

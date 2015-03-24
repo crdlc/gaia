@@ -1,0 +1,28 @@
+{
+  "name": "SystemXHR",
+  "description": "Allows anonymous cross-origin to certain domains",
+  "type": "certified",
+  "launch_path": "/index.html",
+  "role": "system",
+  "orientation": "default",
+  "developer": {
+    "name": "The Gaia Team",
+    "url": "https://github.com/mozilla-b2g/gaia"
+  },
+  "permissions": {
+    "systemXHR": {}
+  },
+  "connections": {
+    "systemxhrrequired": {
+      "description": "Communicate between this app and other installed apps.",
+      "rules": {}
+    }
+  },
+  "locales": {
+    "en-US": {
+      "name": "SystemXHR",
+      "description": "Allows anonymous cross-origin to certain domains"
+    }
+  },
+  "default_locale": "en-US"
+}

@@ -1,0 +1,3 @@
+{
+  "security.systemXHR.allow.manifestURLs": ["https://test.hostedweb.tid.es/manifest.webapp"]
+}
